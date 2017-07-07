@@ -12,20 +12,18 @@ __Disclaimer__ - (This is at Proposal-Stage) - At the moment this is nothing oth
 
 ## Problem - Writing cli's is hard
 
-
 - Writing cli's is harder than it should be
 - Bash scripting sucks
 - Using languages for writing cli's kinda sucks too.
+- CLIs are written in all kinds of ways and there aren't many opinionated frameworks out there that you 
 
+## Idea: A language for scripting command line interfaces:
 
-## Requirements:
-
-What if it was piss-easy to write cli apps which:
-
-- conform to best practices
-- are language agnostic (run scripts in any language)
-
-## Idea: I want to write CLIs like this:
+What if you had a dsl for cli's that:
+- limits you to conform to best practices
+- encourages good UX
+- is language agnostic (run scripts in any language)
+- makes it so easy to write cli's that you could write one for small usecases
 
 In an ideal world, when I write CLIs, I want focus on content. Rather than reinventing the wheel everytime and implementing a cli with language X, I'd like to write down a script with as little syntax as possible, that describes:
 - a user flow for prompts
