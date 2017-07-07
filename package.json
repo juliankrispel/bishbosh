@@ -1,0 +1,9 @@
+{
+  "name": "bishbosh",
+  "version": "0.0.1",
+  "description": "BishBosh - A domain specific language for writing command line interfaces",
+  "main": "dist/index.js",
+  "repository": "git@github.com:juliankrispel/bishbosh.git",
+  "author": "Julian Krispel",
+  "license": "MIT"
+}
