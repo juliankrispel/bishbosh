@@ -23,7 +23,7 @@ What if you had a dsl for cli's that:
 - limits you to conform to best practices
 - encourages good UX
 - is language agnostic (run scripts in any language)
-- makes it so easy to write cli's that you could write one for small usecases
+- makes it so easy to write cli's that you could write one for small usecases (Like onboarding developers, setting up projects, scaffolding, deployment, ci etc)
 
 In an ideal world, when I write CLIs, I want focus on content. Rather than reinventing the wheel everytime and implementing a cli with language X, I'd like to write down a script with as little syntax as possible, that describes:
 - a user flow for prompts
