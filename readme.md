@@ -1,4 +1,6 @@
-:neckbeard: 
+![!!!Bish Bosh!!!](logo.jpg)
+
+:scream: :scream: :scream: :scream: :scream: :scream:
 
 # BishBosh - A domain specific language for writing command line interfaces
 
@@ -146,4 +148,10 @@ You can color your output like so:
 ```
 {red}Hello there{/red}
 ```
+
+### Todo:
+[] - Commands Syntax
+[] - Documentation Syntax
+[] - Build a parser and play around with the syntax more
+[] - Get to a simple mvp asap so I can validate the idea
 
