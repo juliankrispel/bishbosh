@@ -1,7 +1,5 @@
 ![!!!Bish Bosh!!!](logo.jpg)
 
-:scream: :scream: :scream: :scream: :scream: :scream:
-
 # BishBosh - A domain specific language for writing command line interfaces
 
 ![That's Bish and Bosh!!!](bish_and_bosh.jpg)
@@ -19,6 +17,8 @@ __Disclaimer__ - (This is at Proposal-Stage) - At the moment this is nothing oth
 - Bash scripting sucks
 - Using languages for writing cli's kinda sucks too.
 - CLIs are written in all kinds of ways and there aren't many opinionated frameworks out there that you 
+
+:scream: :scream: :scream: :scream: :scream: :scream:
 
 ## Idea: A language for scripting command line interfaces:
 
