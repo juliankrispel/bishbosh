@@ -1,11 +1,11 @@
 ![!!!Bish Bosh!!!](logo.jpg)
 
-![That's Bish and Bosh!!!](bish_and_bosh.jpg)
-Thanks to [Chris Ross](http://www.darkrock.co.uk/) for the excellent the illustration!
-
 :scream: :scream: :scream: :scream: :scream: :scream:
 
 # BishBosh - A domain specific language for writing command line interfaces
+
+![That's Bish and Bosh!!!](bish_and_bosh.jpg)
+Thanks to [Chris Ross](http://www.darkrock.co.uk/) for the excellent the illustration!
 
 __Disclaimer__ - (This is at Proposal-Stage) - At the moment this is nothing other than an __opionated braindump__. If you read something here which aligns with you or otherwise, please make a pr or an issue.
 
