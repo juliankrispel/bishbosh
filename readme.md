@@ -151,8 +151,8 @@ You can color your output like so:
 
 ### Todo:
 
-[ ]- Commands Syntax
-[ ]- Documentation Syntax
-[ ]- Build a parser and play around with the syntax more
-[ ]- Get to a simple mvp asap so I can validate the idea
+- [ ] Commands Syntax
+- [ ] Documentation Syntax
+- [ ] Build a parser and play around with the syntax more
+- [ ] Get to a simple mvp asap so I can validate the idea
 
