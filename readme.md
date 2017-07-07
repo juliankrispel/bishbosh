@@ -1,4 +1,6 @@
-# :neckbeard: BishBosh - A domain specific language for writing command line interfaces
+:neckbeard: 
+
+# BishBosh - A domain specific language for writing command line interfaces
 
 __Disclaimer__ - (This is at Proposal-Stage) - At the moment this is nothing other than an __opionated braindump__. If you read something here which aligns with you or otherwise, please make a pr or an issue.
 
