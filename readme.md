@@ -1,6 +1,6 @@
 # BishBosh - A domain specific language for writing command line interfaces
 
-Disclaimer - This is an opionated braindump.
+__Disclaimer__ - (This is at Proposal-Stage) - At the moment this is nothing other than an opionated braindump. If you read something here which aligns with you or otherwise, please make a pr or an issue, I'd welcome some feedback!!
 
 ## Problem - Writing cli's is hard
 
