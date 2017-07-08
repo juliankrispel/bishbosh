@@ -3,7 +3,7 @@
 # BishBosh - A domain specific language for writing command line interfaces
 
 ![That's Bish and Bosh!!!](bish_and_bosh.jpg)
-Thanks to [Chris Ross](http://www.darkrock.co.uk/) for the excellent the illustration!
+Thanks to [Chris Ross](http://www.darkrock.co.uk/) for the illustration!
 
 __Disclaimer__ - (This is at Proposal-Stage) - At the moment this is nothing other than an __opionated braindump__. If you read something here which aligns with you or otherwise, please make a pr or an issue.
 
@@ -16,13 +16,13 @@ __Disclaimer__ - (This is at Proposal-Stage) - At the moment this is nothing oth
 - Writing cli's is harder than it should be
 - Bash scripting sucks
 - Using languages for writing cli's kinda sucks too.
-- CLIs are written in all kinds of ways and there aren't many opinionated frameworks out there that you 
 
 :scream: :scream: :scream: :scream: :scream: :scream:
 
 ## Idea: A language for scripting command line interfaces:
 
 What if you had a dsl for cli's that:
+- is very restricted and easy to learn for the sole purpose of writing clis
 - limits you to conform to best practices
 - encourages good UX
 - is language agnostic (run scripts in any language)
