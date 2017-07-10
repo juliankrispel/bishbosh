@@ -1,28 +1,45 @@
 @builtin "number.ne"
 @builtin "whitespace.ne"
 
-# execution -> _ "->" _ [^#]:* {%
-#   function(data) {
-#     console.log('exec', data);
-#     return data[3];
-#   }
-# %}
+statement -> (
+  execution |
+  prompt |
+  input_prompt |
+  command
+) {%
+  data => data[0][0]
+%}
 
-#  command -> command_list:? _ ">" _ .:* {%
-#    function(data) {
-#      console.log('command', data);
-#      return data[0];
-#    }
-#  %}
+execution -> _ "->" ws text {%
+  data => ({
+    type: 'execution',
+    command: data[3],
+  })
+%}
 
-command -> list:? ">" text:? {%
-  data => {
-    return {
-      type: 'command',
-      aliases: data[0],
-      text: data[2]
-    };
-  }
+prompt -> _ "?" ws text {%
+  data => ({
+    type: 'prompt',
+    input: false,
+    text: data[3]
+  })
+%}
+
+input_prompt -> _ "?:" word ws text {%
+  data => ({
+    type: 'prompt',
+    input: data[2],
+    text: data[4],
+  })
+%}
+
+
+command -> list:? ">" ws text {%
+  data => ({
+    type: 'command',
+    aliases: data[0],
+    text: data[3]
+  })
 %}
 
 list -> _ word comma_list_item:* {%
@@ -31,12 +48,6 @@ list -> _ word comma_list_item:* {%
 
 comma_list_item -> _ "," _ word _ {%
   data => data[3]
-%}
-
-@{%
-  const text_token = {
-    test: x => /[^\n\r]+/.test(x)
-  }
 %}
 
 text -> %text_token:+ {%
@@ -50,6 +61,12 @@ word -> %char:+ {%
 @{%
   const char= {
     test: (x) => /\b[a-zA-Z0-9_]+\b/.test(x)
+  }
+%}
+
+@{%
+  const text_token = {
+    test: x => /[^\n\r]+/.test(x)
   }
 %}
 

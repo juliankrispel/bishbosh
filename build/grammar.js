@@ -3,13 +3,13 @@
 (function () {
 function id(x) {return x[0]; }
 
-  const text_token = {
-    test: x => /[^\n\r]+/.test(x)
+  const char= {
+    test: (x) => /\b[a-zA-Z0-9_]+\b/.test(x)
   }
 
 
-  const char= {
-    test: (x) => /\b[a-zA-Z0-9_]+\b/.test(x)
+  const text_token = {
+    test: x => /[^\n\r]+/.test(x)
   }
 var grammar = {
     Lexer: undefined,
@@ -107,18 +107,43 @@ var grammar = {
     {"name": "__$ebnf$1", "symbols": ["__$ebnf$1", "wschar"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "__", "symbols": ["__$ebnf$1"], "postprocess": function(d) {return null;}},
     {"name": "wschar", "symbols": [/[ \t\n\v\f]/], "postprocess": id},
+    {"name": "statement$subexpression$1", "symbols": ["execution"]},
+    {"name": "statement$subexpression$1", "symbols": ["prompt"]},
+    {"name": "statement$subexpression$1", "symbols": ["input_prompt"]},
+    {"name": "statement$subexpression$1", "symbols": ["command"]},
+    {"name": "statement", "symbols": ["statement$subexpression$1"], "postprocess": 
+        data => data[0][0]
+        },
+    {"name": "execution$string$1", "symbols": [{"literal":"-"}, {"literal":">"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "execution", "symbols": ["_", "execution$string$1", "ws", "text"], "postprocess": 
+        data => ({
+          type: 'execution',
+          command: data[3],
+        })
+        },
+    {"name": "prompt", "symbols": ["_", {"literal":"?"}, "ws", "text"], "postprocess": 
+        data => ({
+          type: 'prompt',
+          input: false,
+          text: data[3]
+        })
+        },
+    {"name": "input_prompt$string$1", "symbols": [{"literal":"?"}, {"literal":":"}], "postprocess": function joiner(d) {return d.join('');}},
+    {"name": "input_prompt", "symbols": ["_", "input_prompt$string$1", "word", "ws", "text"], "postprocess": 
+        data => ({
+          type: 'prompt',
+          input: data[2],
+          text: data[4],
+        })
+        },
     {"name": "command$ebnf$1", "symbols": ["list"], "postprocess": id},
     {"name": "command$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "command$ebnf$2", "symbols": ["text"], "postprocess": id},
-    {"name": "command$ebnf$2", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "command", "symbols": ["command$ebnf$1", {"literal":">"}, "command$ebnf$2"], "postprocess": 
-        data => {
-          return {
-            type: 'command',
-            aliases: data[0],
-            text: data[2]
-          };
-        }
+    {"name": "command", "symbols": ["command$ebnf$1", {"literal":">"}, "ws", "text"], "postprocess": 
+        data => ({
+          type: 'command',
+          aliases: data[0],
+          text: data[3]
+        })
         },
     {"name": "list$ebnf$1", "symbols": []},
     {"name": "list$ebnf$1", "symbols": ["list$ebnf$1", "comma_list_item"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
@@ -142,7 +167,7 @@ var grammar = {
     {"name": "ws$ebnf$1", "symbols": ["ws$ebnf$1", /[\n\r\s\t]/], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "ws", "symbols": ["ws$ebnf$1"], "postprocess": data => data[0].join('')}
 ]
-  , ParserStart: "command"
+  , ParserStart: "statement"
 }
 if (typeof module !== 'undefined'&& typeof module.exports !== 'undefined') {
    module.exports = grammar;

@@ -19,7 +19,7 @@ __Disclaimer__ - (This is at Proposal-Stage) - At the moment this is nothing oth
 
 :scream: :scream: :scream: :scream: :scream: :scream:
 
-## Idea: A language for scripting command line interfaces:
+## Idea: A small language for scripting command line interfaces:
 
 What if you had a dsl for cli's that:
 - is very restricted and easy to learn for the sole purpose of writing clis
@@ -150,10 +150,20 @@ You can color your output like so:
 {red}Hello there{/red}
 ```
 
+### Commands
+Commands can be in two different contexts. When they are defined in root, they act as cli commands, when they are nested in a prompt, they act as prompt options.
+
+```
+b, build > Build the app and stuff
+  -> execute something
+```
+
+
+
 ### Todo:
 
-- [ ] Commands Syntax
-- [ ] Documentation Syntax
+- [x] Commands Syntax
+- [x] Documentation Syntax
 - [ ] Build a parser and play around with the syntax more
 - [ ] Get to a simple mvp asap so I can validate the idea
 
