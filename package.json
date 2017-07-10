@@ -18,9 +18,9 @@
     "regenerator-runtime": "^0.10.5"
   },
   "scripts": {
-    "compile": "nearleyc src/bishbosh.ne -o src/parser.js",
+    "compile": "nearleyc src/grammar.ne -o build/grammar.js",
     "test": "yarn compile && jest",
-    "test:watch": "gaze \"yarn test\" \"src/**/[!parser]*.*\""
+    "test:watch": "gaze \"yarn test\" \"src/**/*.*\""
   }
 
 }

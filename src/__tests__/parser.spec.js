@@ -1,14 +1,26 @@
 // The compiler
-import nearley from 'nearley';
 import parser from '../parser';
 
 let p;
 
 beforeAll(() => {
-  p = new nearley.Parser(parser.ParserRules, parser.ParserStart);
+  p = parser();
 })
 
 describe('parser', () => {
-  it('', () => {
+  it('parses a command', () => {
+    expect(p.feed('a, aber, aberdoch > Hello World').results[0]).toEqual({
+      type: 'command',
+      aliases: ['a', 'aber', 'aberdoch'],
+      text: ' Hello World',
+    })
+  });
+
+  it('parses a command', () => {
+    expect(p.feed('a, aber, aberdoch > Hello World').results[0]).toEqual({
+      type: 'command',
+      aliases: ['a', 'aber', 'aberdoch'],
+      text: ' Hello World',
+    })
   });
 });
