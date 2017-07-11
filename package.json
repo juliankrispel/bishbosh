@@ -20,7 +20,7 @@
   "scripts": {
     "compile": "nearleyc src/grammar.ne -o build/grammar.js",
     "test": "yarn compile && jest",
-    "test:watch": "gaze \"yarn test\" \"src/**/*.*\""
+    "test:watch": "gaze \"yarn test\" \"src/**/*.*\"",
+    "diagram": "nearley-railroad src/grammar.ne -o grammar.html"
   }
-
 }
