@@ -1918,9 +1918,9 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
-nearley-moo@juliankrispel/nearley-moo@ed84b2f64421b460ff1fc0460155bdd62762cb7b:
+nearley-moo@juliankrispel/nearley-moo#patch-1:
   version "1.0.1"
-  resolved "https://registry.yarnpkg.com/nearley-moo/-/nearley-moo-1.0.1.tgz#3d9dcbe230090547e20987dff9c1172538bee574"
+  resolved "https://codeload.github.com/juliankrispel/nearley-moo/tar.gz/ed84b2f64421b460ff1fc0460155bdd62762cb7b"
   dependencies:
     curry "^1.2.0"
 

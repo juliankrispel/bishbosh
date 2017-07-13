@@ -14,7 +14,7 @@ describe('parser', () => {
     // console.log(p.feed('ab, aber > Hello'));
     // p.feed('a')
 
-    p.feed('a, aber, aberdoch > Hello world');
-    console.log(p.results);
+    // p.feed('a, aber, aberdoch > Hello world');
+    // console.log(p.results);
   });
 });

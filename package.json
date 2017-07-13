@@ -20,9 +20,9 @@
     "regenerator-runtime": "^0.10.5"
   },
   "scripts": {
-    "compile": "nearleyc src/grammar.ne -o src/compiled.js",
+    "compile": "nearleyc src/grammar.ne -o src/___.js",
     "test": "yarn compile && jest",
-    "test:watch": "gaze \"yarn test\" \"src/**/[!compiled]*.*\"",
+    "test:watch": "gaze \"yarn test\" \"src/**/[!___]*.*\"",
     "dia": "nearley-railroad src/bishbosh.ne -o src/grammar.html"
   }
 }
