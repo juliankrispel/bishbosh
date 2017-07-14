@@ -23,6 +23,6 @@
     "compile": "nearleyc src/grammar.ne -o src/___.js",
     "test": "yarn compile && jest",
     "test:watch": "gaze \"yarn test\" \"src/**/[!___]*.*\"",
-    "dia": "nearley-railroad src/bishbosh.ne -o src/grammar.html"
+    "diagram": "nearley-railroad src/bishbosh.ne -o src/grammar.html"
   }
 }

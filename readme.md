@@ -162,8 +162,8 @@ b, build > Build the app and stuff
 
 ### Todo:
 
-- [ ] Commands Syntax
-- [ ] Documentation Syntax
+- [x] Commands Syntax
+- [x] Documentation Syntax
 - [ ] Build a parser and play around with the syntax more
 - [ ] Get to a simple mvp asap so I can validate the idea
 
