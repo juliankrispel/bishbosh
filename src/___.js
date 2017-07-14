@@ -5,7 +5,6 @@ function id(x) {return x[0]; }
 
   const nm = require('nearley-moo');
   const tokens = require('./tokens');
-  console.log('tokens', tokens);
   nm(tokens);
 var grammar = {
     Lexer: undefined,
@@ -105,13 +104,26 @@ var grammar = {
     {"name": "wschar", "symbols": [/[ \t\n\v\f]/], "postprocess": id},
     {"name": "STATEMENTS$ebnf$1", "symbols": ["STATEMENT"]},
     {"name": "STATEMENTS$ebnf$1", "symbols": ["STATEMENTS$ebnf$1", "STATEMENT"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "STATEMENTS", "symbols": ["STATEMENTS$ebnf$1"], "postprocess": 
+    {"name": "STATEMENTS", "symbols": ["STATEMENTS$ebnf$1"], "postprocess": data => data[0]},
+    {"name": "STATEMENT$subexpression$1", "symbols": ["COMMAND"]},
+    {"name": "STATEMENT$subexpression$1", "symbols": [TEXT]},
+    {"name": "STATEMENT$subexpression$1", "symbols": [NL]},
+    {"name": "STATEMENT", "symbols": ["STATEMENT$subexpression$1"], "postprocess": data => data[0][0]},
+    {"name": "COMMAND$ebnf$1", "symbols": ["IDENT_LIST"], "postprocess": id},
+    {"name": "COMMAND$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "COMMAND", "symbols": ["COMMAND$ebnf$1", COMMAND_OP, TEXT], "postprocess": 
         data => {
+          console.log('command', data);
           return data;
         }
         },
-    {"name": "STATEMENT", "symbols": [TEXT, NL]},
-    {"name": "STATEMENT", "symbols": [NL]}
+    {"name": "IDENT_LIST$ebnf$1$subexpression$1", "symbols": [COMMA, IDENT]},
+    {"name": "IDENT_LIST$ebnf$1", "symbols": ["IDENT_LIST$ebnf$1$subexpression$1"]},
+    {"name": "IDENT_LIST$ebnf$1$subexpression$2", "symbols": [COMMA, IDENT]},
+    {"name": "IDENT_LIST$ebnf$1", "symbols": ["IDENT_LIST$ebnf$1", "IDENT_LIST$ebnf$1$subexpression$2"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "IDENT_LIST", "symbols": [IDENT, "IDENT_LIST$ebnf$1"], "postprocess": 
+        data => [data[0]].concat(data[1].map(dat => dat[1]))
+        }
 ]
   , ParserStart: "STATEMENTS"
 }

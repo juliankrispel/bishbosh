@@ -8,14 +8,20 @@ beforeEach(() => {
 });
 
 describe.only('parser', () => {
+  //   it('parses text statements', () => {
+  //     const input = `
+  //     Hello there
+  //     How can I help
+  //     Would you like a coffee?
+  //     `;
+  //     p.feed(input);
+  //     console.log(JSON.stringify(p.results, null, 2));
+  //   });
+
   it('parses text statements', () => {
-    const input = `
-    Hello there
-    How can I help
-    Would you like a coffee?
-    `;
+    const input = `a, b, c > Hey there mate`;
     p.feed(input);
-    console.log('p.results', p.results);
+    console.log(JSON.stringify(p.results, null, 2));
   });
 
   // it('parses a simple prompt', () => {
