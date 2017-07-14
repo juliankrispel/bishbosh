@@ -5,7 +5,7 @@ function id(x) {return x[0]; }
 
   const nm = require('nearley-moo');
   const tokens = require('./tokens');
-
+  console.log('tokens', tokens);
   nm(tokens);
 var grammar = {
     Lexer: undefined,
@@ -103,25 +103,17 @@ var grammar = {
     {"name": "__$ebnf$1", "symbols": ["__$ebnf$1", "wschar"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "__", "symbols": ["__$ebnf$1"], "postprocess": function(d) {return null;}},
     {"name": "wschar", "symbols": [/[ \t\n\v\f]/], "postprocess": id},
-    {"name": "command$ebnf$1", "symbols": ["list"], "postprocess": id},
-    {"name": "command$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "command", "symbols": ["command$ebnf$1", command_op]},
-    {"name": "list$ebnf$1", "symbols": []},
-    {"name": "list$ebnf$1", "symbols": ["list$ebnf$1", "comma_list_item"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "list", "symbols": [word, "list$ebnf$1"], "postprocess": 
-        function(data) {
-          return [data[0]].concat(data[1]);
+    {"name": "STATEMENTS$ebnf$1", "symbols": ["STATEMENT"]},
+    {"name": "STATEMENTS$ebnf$1", "symbols": ["STATEMENTS$ebnf$1", "STATEMENT"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "STATEMENTS", "symbols": ["STATEMENTS$ebnf$1"], "postprocess": 
+        data => {
+          return data;
         }
         },
-    {"name": "text", "symbols": [word]},
-    {"name": "text", "symbols": [text]},
-    {"name": "comma_list_item", "symbols": [comma, word], "postprocess": 
-        function(data){
-          return data[1];
-        }
-        }
+    {"name": "STATEMENT", "symbols": [TEXT, NL]},
+    {"name": "STATEMENT", "symbols": [NL]}
 ]
-  , ParserStart: "command"
+  , ParserStart: "STATEMENTS"
 }
 if (typeof module !== 'undefined'&& typeof module.exports !== 'undefined') {
    module.exports = grammar;

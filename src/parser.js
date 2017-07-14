@@ -1,12 +1,10 @@
 import nearley from 'nearley';
-import moo from 'moo';
-import tokens from './tokens';
 import grammar from './___';
+import lexer from './lexer';
 import nearleyMoo from 'nearley-moo';
 
 export default () => {
-  const nm = nearleyMoo.parser(nearley, grammar);
-  const parser = nm(moo.compile(tokens));
-  parser.ignore('comments');
+  const parser = nearleyMoo.parser(nearley, grammar, lexer);
+  parser.ignore('COMMENT');
   return parser;
 };

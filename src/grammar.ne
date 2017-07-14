@@ -4,29 +4,18 @@
 @{%
   const nm = require('nearley-moo');
   const tokens = require('./tokens');
-
+  console.log('tokens', tokens);
   nm(tokens);
 %}
 
-# execution -> _ "->" _ [^#]:* {%
-#   function(data) {
-#     console.log('exec', data);
-#     return data[3];
-#   }
-# %}
 
-command -> list:? %command_op 
-
-list -> %word comma_list_item:* {%
-  function(data) {
-    return [data[0]].concat(data[1]);
+STATEMENTS -> STATEMENT:+ {%
+  data => {
+    return data;
   }
 %}
 
-text -> %word | %text
+STATEMENT ->
+  %TEXT %NL |
+  %NL
 
-comma_list_item -> %comma %word {%
-  function(data){
-    return data[1];
-  }
-%}

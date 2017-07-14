@@ -7,15 +7,15 @@ beforeEach(() => {
   p = parser();
 });
 
-describe('parser', () => {
-  it('parses', () => {
-    // console.log(JSON.stringify(p.feed('aber > Hello there').results, null, 2));
-    // console.log('a, aber, aberdoch -> Hello there my friend');
-    // console.log(p.feed('ab, aber > Hello'));
-    // p.feed('a')
-
-    // p.feed('a, aber, aberdoch > Hello world');
-    // console.log(p.results);
+describe.only('parser', () => {
+  it('parses text statements', () => {
+    const input = `
+    Hello there
+    How can I help
+    Would you like a coffee?
+    `;
+    p.feed(input);
+    console.log('p.results', p.results);
   });
 
   // it('parses a simple prompt', () => {

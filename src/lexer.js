@@ -1,44 +1,30 @@
 import moo from 'moo';
 
-const COMMENT = /#[^\n\r]*/;
-const TEXT = /[\t ]*[^#\n\r]+/;
+import {
+  EXECUTION_OP,
+  COMMAND_OP,
+  COMMENT,
+  COMMA,
+  COLOR_START,
+  COLOR_END,
+  PROMPT_OP,
+  PROMPT_INPUT,
+  IDENT,
+  NL,
+  TEXT,
+  SCRIPT,
+} from './tokens';
 
-const NL = {
-  match: /[\r\n]/,
-  lineBreaks: true,
-};
-
-const PROMPT_INPUT = /:[\w]+/;
-
-const EXECUTION_OP = {
-  match: /[\t ]*->[\t ]*/,
-  push: 'exec',
-};
-
-const PROMPT_OP = {
-  match: /[\t ]*\?[\t ]*/,
-  push: 'prompt',
-};
-
-const IDENT = /[\t ]*([a-zA-Z0-9_]+)(?=(?:[\t ]*,)|(?:[\t ]*>))/;
-
-const lexer = moo.states({
+export default moo.states({
   main: {
     COMMENT,
     PROMPT_OP,
-    COMMA: /[\t ]*,[\t ]*/,
+    COMMA,
     EXECUTION_OP,
-    COMMAND_OP: {
-      match: /[\t ]*>[\t ]*/,
-      push: 'txt',
-    },
+    COMMAND_OP,
     NL,
-    COLOR_START: {
-      match: /{\w+}/,
-    },
-    COLOR_END: {
-      match: /{\/\w+}/,
-    },
+    COLOR_START,
+    COLOR_END,
     IDENT,
     TEXT
   },
@@ -57,10 +43,7 @@ const lexer = moo.states({
       ...NL,
       pop: 1,
     },
-    SCRIPT: {
-      match: /[^\n\r#]+/,
-      lineBreaks: true,
-    }
+    SCRIPT
   },
   prompt: {
     PROMPT_INPUT,
@@ -71,5 +54,3 @@ const lexer = moo.states({
     TEXT,
   }
 });
-
-module.exports = lexer;
