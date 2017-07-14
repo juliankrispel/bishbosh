@@ -1,7 +1,8 @@
 import moo from 'moo';
 
 const COMMENT = /#[^\n\r]*/;
-const TEXT = /[\t ]*[\w][.]|[^#\n\r]+/;
+const TEXT = /[\t ]*[^#\n\r]+/;
+
 const NL = {
   match: /[\r\n]/,
   lineBreaks: true,
@@ -18,6 +19,8 @@ const PROMPT_OP = {
   match: /[\t ]*\?[\t ]*/,
   push: 'prompt',
 };
+
+const IDENT = /[\t ]*([a-zA-Z0-9_]+)(?=(?:[\t ]*,)|(?:[\t ]*>))/;
 
 const lexer = moo.states({
   main: {
@@ -36,7 +39,7 @@ const lexer = moo.states({
     COLOR_END: {
       match: /{\/\w+}/,
     },
-    IDENT: /[a-zA-Z0-9_]+/,
+    IDENT,
     TEXT
   },
   txt: {

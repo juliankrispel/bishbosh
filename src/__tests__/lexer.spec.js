@@ -67,17 +67,14 @@ describe('lexer', () => {
   it('lexes a prompt ', () => {
     const input = '? Boing boing';
     expect(lex(input)).toEqual([
-      'PROMPT_OP',
-      'TEXT',
+      'PROMPT_OP', 'TEXT',
     ]);
   });
 
   it('lexes a prompt with input ', () => {
     const input = '?:input Boing boing?';
     expect(lex(input)).toEqual([
-      'PROMPT_OP',
-      'PROMPT_INPUT',
-      'TEXT',
+      'PROMPT_OP', 'PROMPT_INPUT', 'TEXT',
     ]);
   });
 
@@ -85,15 +82,8 @@ describe('lexer', () => {
     const input = `a, b > Hello there
     -> ./boing.sh # this is awesome`;
     expect(lex(input)).toEqual([
-      'IDENT',
-      'COMMA',
-      'IDENT',
-      'COMMAND_OP',
-      'TEXT',
-      'NL',
-      'EXECUTION_OP',
-      'SCRIPT',
-      'COMMENT'
+      'IDENT', 'COMMA', 'IDENT', 'COMMAND_OP', 'TEXT', 'NL',
+      'EXECUTION_OP', 'SCRIPT', 'COMMENT'
     ]);
   });
 
@@ -105,14 +95,49 @@ describe('lexer', () => {
     You can act to change and control your life;
     and the procedure, the process is its own reward`;
 
+    // unfortunately our first word will be an IDENT, since there
+    // is no way for us to give precedence over TEXT at this point
     expect(lex(input)).toEqual([
+      'TEXT', 'NL',
+      'TEXT', 'NL',
+      'TEXT', 'NL',
+      'TEXT', 'NL',
+      'TEXT', 'NL',
       'TEXT',
-      'NL',
-      'TEXT',
-      'NL',
-      'TEXT',
-      'NL',
-      'TEXT'
     ]);
+  });
+
+  it('lexes a bishbosh program', () => {
+    const program = `
+    Welcome to our {green}awesome{/green} Program!
+    ?:name Say your name!
+      Hi {{name}}
+
+    ? What's your job?
+      a > Truck Driver
+      b > Taxi Driver
+      c > P.O.T.U.S.
+        -> ./go-to-hell.sh
+        Now you've gone to hell!
+
+    bomb > Build a bomb`;
+
+    const tokens = [
+      'NL',
+      'TEXT', 'NL',
+      'PROMPT_OP', 'PROMPT_INPUT', 'TEXT', 'NL',
+      'TEXT', 'NL',
+      'NL',
+      'PROMPT_OP', 'TEXT', 'NL',
+      'IDENT', 'COMMAND_OP', 'TEXT', 'NL',
+      'IDENT', 'COMMAND_OP', 'TEXT', 'NL',
+      'IDENT', 'COMMAND_OP', 'TEXT', 'NL',
+      'EXECUTION_OP', 'SCRIPT', 'NL',
+      'TEXT', 'NL',
+      'NL',
+      'IDENT', 'COMMAND_OP', 'TEXT'
+    ];
+
+    expect(lex(program)).toEqual(tokens);
   });
 });
