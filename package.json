@@ -13,14 +13,16 @@
     "gaze-cli": "^0.2.0",
     "jest": "^20.0.4",
     "lodash": "^4.17.4",
+    "moo": "^0.3.3",
     "nearley": "^2.10.1",
+    "nearley-moo": "juliankrispel/nearley-moo#patch-1",
     "ramda": "^0.24.1",
     "regenerator-runtime": "^0.10.5"
   },
   "scripts": {
-    "compile": "nearleyc src/grammar.ne -o build/grammar.js",
+    "compile": "nearleyc src/grammar.ne -o src/___.js",
     "test": "yarn compile && jest",
-    "test:watch": "gaze \"yarn test\" \"src/**/*.*\"",
-    "diagram": "nearley-railroad src/grammar.ne -o grammar.html"
+    "test:watch": "gaze \"yarn test\" \"src/**/[!___]*.*\"",
+    "diagram": "nearley-railroad src/bishbosh.ne -o src/grammar.html"
   }
 }

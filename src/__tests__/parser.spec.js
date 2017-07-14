@@ -5,15 +5,23 @@ let p;
 
 beforeEach(() => {
   p = parser();
-})
+});
 
-describe('parser', () => {
-  it('parses a command', () => {
-    expect(p.feed('a, aber, aberdoch > Hello World').results[0]).toEqual({
-      type: 'command',
-      aliases: ['a', 'aber', 'aberdoch'],
-      text: 'Hello World',
-    })
+describe.only('parser', () => {
+  //   it('parses text statements', () => {
+  //     const input = `
+  //     Hello there
+  //     How can I help
+  //     Would you like a coffee?
+  //     `;
+  //     p.feed(input);
+  //     console.log(JSON.stringify(p.results, null, 2));
+  //   });
+
+  it('parses text statements', () => {
+    const input = `a, b, c > Hey there mate`;
+    p.feed(input);
+    console.log(JSON.stringify(p.results, null, 2));
   });
 
   // it('parses a simple prompt', () => {

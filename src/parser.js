@@ -1,7 +1,10 @@
-// The compiler
 import nearley from 'nearley';
-import parser from '../build/grammar';
+import grammar from './___';
+import lexer from './lexer';
+import nearleyMoo from 'nearley-moo';
 
-export default () => (
-  new nearley.Parser(parser.ParserRules, parser.ParserStart)
-);
+export default () => {
+  const parser = nearleyMoo.parser(nearley, grammar, lexer);
+  parser.ignore('COMMENT');
+  return parser;
+};
