@@ -7,6 +7,7 @@
   "author": "Julian Krispel",
   "license": "MIT",
   "dependencies": {
+    "babel-cli": "^6.24.1",
     "babel-jest": "^20.0.3",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -14,15 +15,20 @@
     "jest": "^20.0.4",
     "lodash": "^4.17.4",
     "moo": "^0.3.3",
-    "nearley": "^2.10.1",
+    "nearley": "^2.10.2",
     "nearley-moo": "juliankrispel/nearley-moo#patch-1",
     "ramda": "^0.24.1",
     "regenerator-runtime": "^0.10.5"
   },
   "scripts": {
     "compile": "nearleyc src/grammar.ne -o src/___.js",
+    "te": "babel-node ./src/test.js",
     "test": "yarn compile && jest",
     "test:watch": "gaze \"yarn test\" \"src/**/[!___]*.*\"",
     "diagram": "nearley-railroad src/bishbosh.ne -o src/grammar.html"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.6.0"
   }
 }

@@ -7,6 +7,8 @@ Thanks to [Chris Ross](http://www.darkrock.co.uk/) for the illustration!
 
 __Disclaimer__ - (This is at Proposal-Stage) - At the moment this is nothing other than an __opionated braindump__. If you read something here which aligns with you or otherwise, please make a pr or an issue.
 
+__Update:__ - I've implemented a lexer with [moo](https://github.com/tjvr/moo) so far, as well and am using [nearley](https://github.com/Hardmath123/nearley) to generate a parser. So far so good.
+
 ### By all means, tell me your opinion, whether it'd be a rant, encouragement, or an idea for improvement - I welcome feedback and am reaching out to you for it!
 
 :fire: :fire: __Warning - opinions ahead__ :fire: :fire:
@@ -85,7 +87,17 @@ else
 Right, that's all, see you later aligator!
 ```
 
-### Syntax - Just thinking out loud rn
+### Syntax
+
+### Whitespace
+Bishbosh is whitespace sensitive. Indentations create new scope. So writing something like this:
+
+```
+build > Builds the ci
+  # the below line will be executed only if the build command is run
+  -> ./build.sh
+```
+
 
 ### Comments
 `# Yo I am a comment`

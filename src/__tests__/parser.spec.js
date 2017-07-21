@@ -7,7 +7,26 @@ beforeEach(() => {
   p = parser();
 });
 
-describe.only('parser', () => {
+const mapNode = (node) => {
+  const { type, left = [], right = [] } = node;
+  return {
+    type,
+    left: left.map(({type, value}) => (type)),
+    right: right.map(({type, value}) => (type)),
+  }
+};
+
+// const mapNode = (node) => {
+//   const { type, left = [], right = [] } = node;
+//   return {
+//     type,
+//     left: left.map(({type, value}) => ({type, value})),
+//     right: right.map(({type, value}) => ({type, value})),
+//   }
+// };
+
+
+describe('parser', () => {
   //   it('parses text statements', () => {
   //     const input = `
   //     Hello there
@@ -21,7 +40,12 @@ describe.only('parser', () => {
   it('parses text statements', () => {
     const input = `a, b, c > Hey there mate`;
     p.feed(input);
-    console.log(JSON.stringify(p.results, null, 2));
+    expect(p.results[0].map(mapNode))
+    .toEqual([{
+      type: 'COMMAND',
+      left: ['IDENT', 'IDENT', 'IDENT'],
+      right: ['TEXT'],
+    }]);
   });
 
   // it('parses a simple prompt', () => {

@@ -7,19 +7,24 @@
   nm(tokens);
 %}
 
-STATEMENTS -> STATEMENT:+ {% data => data[0] %}
+STATEMENTS -> LINE:+ {% data => data[0] %}
 
-STATEMENT -> (
-  COMMAND |
-  %TEXT |
+LINE -> (
+  STATEMENT |
   %NL
 ) {% data => data[0][0] %}
 
+STATEMENT -> ( %INDENT:? (
+  COMMAND |
+  %TEXT
+)) {% data => data[0][1][0] %}
+
 COMMAND -> IDENT_LIST:? %COMMAND_OP %TEXT {%
-  data => {
-    console.log('command', data);
-    return data;
-  }
+  data => ({
+    type: 'COMMAND',
+    left: data[0],
+    right: [data[2]],
+  })
 %}
 
 IDENT_LIST -> %IDENT ( %COMMA %IDENT ):+ {%

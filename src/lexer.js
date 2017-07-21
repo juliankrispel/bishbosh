@@ -1,6 +1,8 @@
+import get from 'lodash/get';
 import moo from 'moo';
 
 import {
+  INDENT,
   EXECUTION_OP,
   COMMAND_OP,
   COMMENT,
@@ -15,8 +17,9 @@ import {
   SCRIPT,
 } from './tokens';
 
-export default moo.states({
+const lexer = moo.states({
   main: {
+    INDENT,
     COMMENT,
     PROMPT_OP,
     COMMA,
@@ -28,15 +31,7 @@ export default moo.states({
     IDENT,
     TEXT
   },
-  txt: {
-    EXECUTION_OP,
-    COMMENT,
-    NL: {
-      ...NL,
-      pop: 1,
-    },
-    TEXT,
-  },
+
   exec: {
     COMMENT,
     NL: {
@@ -45,6 +40,7 @@ export default moo.states({
     },
     SCRIPT
   },
+
   prompt: {
     PROMPT_INPUT,
     NL: {
@@ -54,3 +50,28 @@ export default moo.states({
     TEXT,
   }
 });
+
+
+lexer._reset = lexer.reset;
+lexer.reset = function(string) {
+  this.lastIndent = 0;
+  return this._reset(string);
+};
+
+lexer._next = lexer.next;
+lexer.next = function() {
+  let nextToken = this._next();
+  if (get(nextToken, 'type') === 'INDENT'){
+    const nextIndent = nextToken.value.length
+    if (nextIndent < this.lastIndent) {
+      nextToken.type = 'DEDENT';
+    } else if (nextIndent === this.lastIndent) {
+      return this.next();
+    }
+    this.lastIndent = get(nextToken, 'value.length', 0);
+  }
+
+  return nextToken;
+};
+
+export default lexer;

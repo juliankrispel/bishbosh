@@ -1,6 +1,6 @@
 const COMMENT = /#[^\n\r]*/;
 
-const TEXT = /[\t ]*[^#\n\r]+/;
+const TEXT = /[^#\n\r]+/;
 
 const NL = {
   match: /[\r\n]/,
@@ -20,6 +20,8 @@ const SCRIPT = {
   lineBreaks: true,
 };
 
+const INDENT = /^[\t ]+/;
+
 const PROMPT_INPUT = /:[\w]+/;
 
 const EXECUTION_OP = {
@@ -35,13 +37,13 @@ const PROMPT_OP = {
 const COMMA = /[\t ]*,[\t ]*/;
 
 const COMMAND_OP = {
-  match: /[\t ]*>[\t ]*/,
-  push: 'txt',
+  match: /[\t ]*>[\t ]*/
 };
 
-const IDENT = /[\t ]*([a-zA-Z0-9_]+)(?=(?:[\t ]*,)|(?:[\t ]*>))/;
+const IDENT = /([a-zA-Z0-9_]+)(?=(?:[\t ]*,)|(?:[\t ]*>))/;
 
 module.exports = {
+  INDENT,
   EXECUTION_OP,
   COMMAND_OP,
   COMMENT,

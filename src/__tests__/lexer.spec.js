@@ -83,7 +83,7 @@ describe('lexer', () => {
     -> ./boing.sh # this is awesome`;
     expect(lex(input)).toEqual([
       'IDENT', 'COMMA', 'IDENT', 'COMMAND_OP', 'TEXT', 'NL',
-      'EXECUTION_OP', 'SCRIPT', 'COMMENT'
+      'INDENT', 'EXECUTION_OP', 'SCRIPT', 'COMMENT'
     ]);
   });
 
@@ -99,7 +99,7 @@ describe('lexer', () => {
     // is no way for us to give precedence over TEXT at this point
     expect(lex(input)).toEqual([
       'TEXT', 'NL',
-      'TEXT', 'NL',
+      'INDENT', 'TEXT', 'NL',
       'TEXT', 'NL',
       'TEXT', 'NL',
       'TEXT', 'NL',
@@ -124,18 +124,18 @@ describe('lexer', () => {
 
     const tokens = [
       'NL',
-      'TEXT', 'NL',
+      'INDENT', 'TEXT', 'NL',
       'PROMPT_OP', 'PROMPT_INPUT', 'TEXT', 'NL',
+      'INDENT', 'TEXT', 'NL',
+      'NL',
+      'DEDENT', 'PROMPT_OP', 'TEXT', 'NL',
+      'INDENT', 'IDENT', 'COMMAND_OP', 'TEXT', 'NL',
+      'IDENT', 'COMMAND_OP', 'TEXT', 'NL',
+      'IDENT', 'COMMAND_OP', 'TEXT', 'NL',
+      'INDENT', 'EXECUTION_OP', 'SCRIPT', 'NL',
       'TEXT', 'NL',
       'NL',
-      'PROMPT_OP', 'TEXT', 'NL',
-      'IDENT', 'COMMAND_OP', 'TEXT', 'NL',
-      'IDENT', 'COMMAND_OP', 'TEXT', 'NL',
-      'IDENT', 'COMMAND_OP', 'TEXT', 'NL',
-      'EXECUTION_OP', 'SCRIPT', 'NL',
-      'TEXT', 'NL',
-      'NL',
-      'IDENT', 'COMMAND_OP', 'TEXT'
+      'DEDENT', 'IDENT', 'COMMAND_OP', 'TEXT'
     ];
 
     expect(lex(program)).toEqual(tokens);
