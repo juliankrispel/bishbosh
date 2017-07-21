@@ -8,12 +8,12 @@ beforeEach(() => {
 });
 
 const mapNode = (node) => {
-  const { type, left = [], right = [] } = node;
-  return {
-    type,
-    left: left.map(({type, value}) => (type)),
-    right: right.map(({type, value}) => (type)),
-  }
+  const { type, left, right, block } = node;
+  const res = { type };
+  if (left) res.left = left.map(mapNode);
+  if (right) res.right = right.map(mapNode);
+  if (block) res.block = block.map(mapNode);
+  return res;
 };
 
 // const mapNode = (node) => {
@@ -37,14 +37,112 @@ describe('parser', () => {
   //     console.log(JSON.stringify(p.results, null, 2));
   //   });
 
-  it('parses text statements', () => {
-    const input = `a, b, c > Hey there mate`;
+  // it('throws for commands without blocks', () => {
+  //   const input = `a, b, c > Hey there mate`;
+  //   expect(() => p.feed(input)).toThrow();
+  // });
+
+
+  it('parses commands with blocks', () => {
+    const input = `a, b, c > Hey there mate
+    Thats great mate`;
     p.feed(input);
     expect(p.results[0].map(mapNode))
     .toEqual([{
       type: 'COMMAND',
-      left: ['IDENT', 'IDENT', 'IDENT'],
-      right: ['TEXT'],
+      left: [
+        { type: 'IDENT'},
+        { type: 'IDENT'},
+        { type: 'IDENT'},
+      ],
+      right: [
+        { type: 'TEXT'},
+      ],
+      block: [
+        { type: 'TEXT'},
+      ]
+    }]);
+  });
+
+  it('parses command with nested command', () => {
+    const input = `a, b, c > Hey there mate
+    a > Thats great mate
+      Hello friend!`;
+    p.feed(input);
+    expect(p.results[0].map(mapNode))
+    .toEqual([{
+      type: 'COMMAND',
+      left: [
+        { type: 'IDENT'},
+        { type: 'IDENT'},
+        { type: 'IDENT'},
+      ],
+      right: [
+        { type: 'TEXT'},
+      ],
+      block: [
+        {
+          type: 'COMMAND',
+          left: [
+            { type: 'IDENT' }
+          ],
+          right: [
+            { type: 'TEXT'},
+          ],
+          block: [
+            { type: 'TEXT'},
+          ]
+        }
+      ]
+    }]);
+  });
+
+  it('parses command with multiple nested command blocks', () => {
+    const input = `a, b, c > Hey there mate
+    a > Thats great mate
+      Hello friend!
+    b > Thats great mate
+      Hello friend!`;
+
+    p.feed(input);
+
+    expect(p.results[0].map(mapNode))
+    .toEqual([{
+      type: 'COMMAND',
+      left: [
+        { type: 'IDENT'},
+        { type: 'IDENT'},
+        { type: 'IDENT'},
+      ],
+      right: [
+        { type: 'TEXT'},
+      ],
+      block: [
+        {
+          type: 'COMMAND',
+          left: [
+            { type: 'IDENT' }
+          ],
+          right: [
+            { type: 'TEXT'},
+          ],
+          block: [
+            { type: 'TEXT'},
+          ]
+        },
+        {
+          type: 'COMMAND',
+          left: [
+            { type: 'IDENT' }
+          ],
+          right: [
+            { type: 'TEXT'},
+          ],
+          block: [
+            { type: 'TEXT'},
+          ]
+        }
+      ]
     }]);
   });
 

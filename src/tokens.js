@@ -36,6 +36,8 @@ const PROMPT_OP = {
 
 const COMMA = /[\t ]*,[\t ]*/;
 
+const DEDENT = 'DEDENT';
+
 const COMMAND_OP = {
   match: /[\t ]*>[\t ]*/
 };
@@ -44,6 +46,7 @@ const IDENT = /([a-zA-Z0-9_]+)(?=(?:[\t ]*,)|(?:[\t ]*>))/;
 
 module.exports = {
   INDENT,
+  DEDENT,
   EXECUTION_OP,
   COMMAND_OP,
   COMMENT,
